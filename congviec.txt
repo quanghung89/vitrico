@@ -1,0 +1,11 @@
+công việc Chưa xong  :
+frontend
+- custom phân trang cho danh sách tin tức
+- custom phân trang cho danh sách trường đại học
+- tạo table quản lý links (youtobe, facebook, ...), favicon, logo, liên hệ, địa chỉ, số điện thoại
+- tạo bảng quản lý fead back
+
+backend
+- phân quyền,
+- change password,
+- fix bug

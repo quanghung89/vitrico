@@ -8,6 +8,7 @@
 </p>
 
 ## vitrico
+- composer install
 - index.php in folder public
 - create db (...)
 - php artisan migrate

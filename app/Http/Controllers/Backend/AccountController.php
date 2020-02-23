@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\CreateAccountRequest;
 use App\Http\Requests\Account\UpdateAccountRequest;
 use App\Interfaces\AccountInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 
 class AccountController extends Controller
 {
@@ -27,6 +29,7 @@ class AccountController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('student_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $listAccounts = $this->repository->listsAccount();
         return view('backend.account.index', ['listAccounts' => $listAccounts]);
     }
@@ -38,6 +41,7 @@ class AccountController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('student_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('backend.account.create');
     }
 
@@ -64,6 +68,7 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('student_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $account = $this->repository->findAccountId($id);
 
         return view('backend.account.update', compact('account'));
@@ -93,6 +98,7 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('student_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $account = $this->repository->deleteAccount($id);
         if (!$account)
         {

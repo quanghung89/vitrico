@@ -21,7 +21,7 @@
                 @endif
                 <div class="wrap-input100 m-b-23" data-validate = "Hãy nhập Email ">
                     <span class="label-input100">Email :</span>
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                    <input class="input100" type="text" name="email" placeholder="Email" value="{{old('email')}}">
                     <span class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
                 <p style="color: red">{{ $errors->first('email') }}</p>
@@ -45,13 +45,6 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="txt1 text-center p-t-54 p-b-20">
-						<span>
-							Tạo Tài Khoản
-						</span>
-                </div>
-
                 <div class="flex-c-m">
                     <a href="#" class="login100-social-item bg1">
                         <i class="fa fa-facebook"></i>

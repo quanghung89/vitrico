@@ -15,15 +15,17 @@
             </div>
             <div class="row">
                 <div class="col-md-9 col-12 event-item">
-                    <div class="img-scale newest-event">
-                        <img src="{{asset('upload/images/new').'/'.$newRepresentative[0]['image']}}" class="feature-image transition" height="550px">
-                        <div class="transition sub_title">
-                            <h3 class="box_item">
-                                <a href="{{route('tin-tuc',[$newRepresentative[0]['id'], $newRepresentative[0]['slug']])}}"
-                                   class="caption-text">{{$newRepresentative[0]['title']}}</a>
-                            </h3>
+                    @if($newRepresentative->count() != 0)
+                        <div class="img-scale newest-event">
+                            <img src="{{asset('upload/images/new').'/'.$newRepresentative[0]['image']}}" class="feature-image transition" height="550px">
+                            <div class="transition sub_title">
+                                <h3 class="box_item">
+                                    <a href="{{route('tin-tuc',[$newRepresentative[0]['id'], $newRepresentative[0]['slug']])}}"
+                                       class="caption-text">{{$newRepresentative[0]['title']}}</a>
+                                </h3>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="col-md-3 col-12">
                     <div class="row">

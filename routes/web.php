@@ -14,7 +14,7 @@ Route::get('auth/login',['as'=>'login', 'uses'=>'Auth\LoginController@getLogin']
 Route::post('auth/login',['as'=>'auth.login', 'uses'=>'Auth\LoginController@postLogin']);
 Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Auth\LoginController@logout']);
 
-Route::group(['middleware' => 'checkLogin', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('index', ['as' => 'dashboard.index', 'uses' => 'Backend\DashboardController@index']);
     });
@@ -78,11 +78,60 @@ Route::group(['middleware' => 'checkLogin', 'prefix' => 'admin'], function() {
 
         Route::get('delete/{id}', ['as' => 'slide.destroy', 'uses' => 'Backend\SlideController@destroy']);
     });
+
+    Route::group(['prefix' => 'permissions'], function () {
+        Route::get('index', ['as' => 'permissions.index', 'uses' => 'Backend\PermissionController@index']);
+
+        Route::get('create', ['as' => 'permissions.create', 'uses' => 'Backend\PermissionController@create']);
+        Route::post('create', ['as' => 'permissions.store', 'uses' => 'Backend\PermissionController@store']);
+
+        Route::get('edit/{id}', ['as' => 'permissions.edit', 'uses' => 'Backend\PermissionController@edit']);
+        Route::post('update/{id}', ['as' => 'permissions.update', 'uses' => 'Backend\PermissionController@update']);
+
+        Route::get('delete/{id}', ['as' => 'permissions.destroy', 'uses' => 'Backend\PermissionController@destroy']);
+    });
+
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('index', ['as' => 'roles.index', 'uses' => 'Backend\RoleController@index']);
+
+        Route::get('create', ['as' => 'roles.create', 'uses' => 'Backend\RoleController@create']);
+        Route::post('create', ['as' => 'roles.store', 'uses' => 'Backend\RoleController@store']);
+
+        Route::get('edit/{id}', ['as' => 'roles.edit', 'uses' => 'Backend\RoleController@edit']);
+        Route::post('update/{id}', ['as' => 'roles.update', 'uses' => 'Backend\RoleController@update']);
+
+        Route::get('delete/{id}', ['as' => 'roles.destroy', 'uses' => 'Backend\RoleController@destroy']);
+    });
+
+    Route::group(['prefix' => 'user-manager'], function () {
+        Route::get('index', ['as' => 'users.index', 'uses' => 'Backend\UserController@index']);
+
+        Route::get('create', ['as' => 'users.create', 'uses' => 'Backend\UserController@create']);
+        Route::post('create', ['as' => 'users.store', 'uses' => 'Backend\UserController@store']);
+
+        Route::get('edit/{id}', ['as' => 'users.edit', 'uses' => 'Backend\UserController@edit']);
+        Route::post('update/{id}', ['as' => 'users.update', 'uses' => 'Backend\UserController@update']);
+
+        Route::get('delete/{id}', ['as' => 'users.destroy', 'uses' => 'Backend\UserController@destroy']);
+    });
+
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('index', ['as' => 'settings.index', 'uses' => 'Backend\SettingController@index']);
+
+        Route::get('create', ['as' => 'settings.create', 'uses' => 'Backend\SettingController@create']);
+        Route::post('create', ['as' => 'settings.store', 'uses' => 'Backend\SettingController@store']);
+
+        Route::get('edit/{id}', ['as' => 'settings.edit', 'uses' => 'Backend\SettingController@edit']);
+        Route::post('update/{id}', ['as' => 'settings.update', 'uses' => 'Backend\SettingController@update']);
+
+        Route::get('delete/{id}', ['as' => 'settings.destroy', 'uses' => 'Backend\SettingController@destroy']);
+    });
 });
 
 Route::get('/', ['as'=>'index', 'uses' => 'Frontend\FrontendController@index']);
-Route::get('/tin-tuc/{id}/{slug}.html', ['as'=>'tin-tuc', 'uses' => 'Frontend\FrontendController@tintuc']);
-Route::get('/tin-tuc', ['as'=>'all-news', 'uses' => 'Frontend\FrontendController@allnews']);
+Route::get('/news/{id}/{slug}.html', ['as'=>'tin-tuc', 'uses' => 'Frontend\FrontendController@tintuc']);
+Route::get('/news', ['as'=>'all-news', 'uses' => 'Frontend\FrontendController@allnews']);
 Route::get('/detail-university/{id}/{slug}.html', ['as'=>'detail-university', 'uses' => 'Frontend\FrontendController@detailuniversity']);
 Route::get('/all-university', ['as'=>'all-university', 'uses' => 'Frontend\FrontendController@alluniversity']);
+
 

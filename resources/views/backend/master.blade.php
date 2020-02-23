@@ -9,6 +9,9 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('backend/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
     <!-- overlayScrollbars -->
@@ -102,6 +105,7 @@
 <script src="{{asset('backend/plugins/jquery-mapael/maps/world_countries.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('backend/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="{{asset('backend/plugins/select2/js/select2.full.min.js')}}"></script>
 
 <!-- PAGE SCRIPTS -->
 <script src="{{asset('backend/dist/js/pages/dashboard2.js')}}"></script>
@@ -124,15 +128,16 @@
 <script>
     $(function () {
         // Summernote
-        $('.textarea').summernote()
+        $('.textarea').summernote();
+
+        $('.select2').select2();
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
     })
 </script>
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
-</script>
-
-
 </body>
 </html>

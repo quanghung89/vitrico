@@ -11,9 +11,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh Sách Thể Loại : {{$listCategories ? $listCategories->count() : 0}}</h3>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="align:right">
-                            <a href="{{route('category.create') }}" class="btn btn-primary">Thêm Thể Loại</a>
-                        </div>
+                        @can('category_create')
+                            <div class="input-group input-group-sm" style="align:right">
+                                <a href="{{route('category.create') }}" class="btn btn-primary">Thêm Thể Loại</a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 @if(session('success'))
@@ -24,19 +26,19 @@
                     <div class="alert alert-danger">
                         {{session('error')}}
                     </div>
-                @endif
-                <!-- /.card-header -->
+            @endif
+            <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Tên</th>
-                                <th>Tiêu Đề</th>
-                                <th>Trạng Thái</th>
-                                <th>Sửa</th>
-                                <th>Xóa</th>
-                            </tr>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Tiêu Đề</th>
+                            <th>Trạng Thái</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
                         </thead>
                         <tbody>
                         @if($listCategories->count() != null)
@@ -47,22 +49,27 @@
                                     <td>{{$listCategory['title']}}</td>
                                     <td>
                                         @if($listCategory['status'] == \App\Models\Category::STATUS_ENABLE)
-                                        {{"Hiển Thị"}}
-                                            @else
-                                        {{"Ẩn"}}
-                                            @endif
+                                            {{"Hiển Thị"}}
+                                        @else
+                                            {{"Ẩn"}}
+                                        @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('category.edit',[$listCategory['id']])}}">
-                                            <i class="fa fa-edit"></i>
-                                            Sửa
-                                        </a>
+                                        @can('category_edit')
+                                            <a href="{{route('category.edit',[$listCategory['id']])}}">
+                                                <i class="fa fa-edit"></i>
+                                                Sửa
+                                            </a>
+                                        @endcan
                                     </td>
                                     <td>
-                                        <a href="{{route('category.destroy',[$listCategory['id']])}}" onclick="confirmDelete()">
-                                            <i class="fa fa-trash-alt"></i>
-                                            Xóa
-                                        </a>
+                                        @can('category_delete')
+                                            <a href="{{route('category.destroy',[$listCategory['id']])}}"
+                                               onclick="confirmDelete()">
+                                                <i class="fa fa-trash-alt"></i>
+                                                Xóa
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

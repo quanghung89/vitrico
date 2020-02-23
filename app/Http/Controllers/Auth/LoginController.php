@@ -50,9 +50,7 @@ class LoginController extends Controller
     {
         $login = [
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'level' => User::LEVEL_ADMIN,
-            'status' => User::STATUS_ENABLE
+            'password' => $request->input('password')
         ];
 
         if (Auth::attempt($login)) {

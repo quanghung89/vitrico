@@ -11,9 +11,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh Sách Tin Tức : {{$news ? $news->count() : 0}}</h3>
                     <div class="card-tools">
+                        @can('new_create')
                         <div class="input-group input-group-sm" style="align:right">
                             <a href="{{route('news.create') }}" class="btn btn-primary">Thêm Tin Tức</a>
                         </div>
+                            @endcan
                     </div>
                 </div>
                 @if(session('success'))
@@ -65,16 +67,20 @@
                                             width="80px">
                                     </td>
                                     <td>
+                                        @can('new_edit')
                                         <a href="{{route('news.edit',[$new['id']])}}">
                                             <i class="fa fa-edit"></i>
                                             Sửa
                                         </a>
+                                            @endcan
                                     </td>
                                     <td>
+                                        @can('new_delete')
                                         <a href="{{route('news.destroy',[$new['id']])}}" onclick="confirmDelete()">
                                             <i class="fa fa-trash-alt"></i>
                                             Xóa
                                         </a>
+                                            @endcan
                                     </td>
                                 </tr>
                             @endforeach

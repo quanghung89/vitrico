@@ -20,24 +20,28 @@
                     {{'active'}}
                     @endif
                         ">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fa fa-tachometer-alt"></i>
                         <p>Bảng Điều Khiển</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('university.index')}}"
-                        class="nav-link
-                            @if (
-                                 Route::currentRouteName() == 'university.index' ||
-                                 Route::currentRouteName() ==  'university.create' ||
-                                 Route::currentRouteName() ==  'university.edit')
-                                {{'active'}}
-                            @endif
-                           ">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Trường Đại Học Hàn</p>
-                    </a>
-                </li>
+                @can('university_view')
+                    <li class="nav-item">
+                        <a href="{{route('university.index')}}"
+                           class="nav-link
+                                @if (
+                                     Route::currentRouteName() == 'university.index' ||
+                                     Route::currentRouteName() ==  'university.create' ||
+                                     Route::currentRouteName() ==  'university.edit')
+                           {{'active'}}
+                           @endif
+                               ">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>Trường Đại Học Hàn</p>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('category_view')
                 <li class="nav-item has-treeview">
                     <a href="{{route('category.index')}}" class="nav-link
                         @if (
@@ -47,10 +51,13 @@
                     {{'active'}}
                     @endif
                         ">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fa fa-copy"></i>
                         <p> Loại Tin</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('new_view')
                 <li class="nav-item has-treeview">
                     <a href="{{route('news.index')}}"
                        class="nav-link
@@ -62,10 +69,13 @@
                        {{'active'}}
                        @endif
                            ">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fa fa-edit"></i>
                         <p>Tin Tức</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('student_view')
                 <li class="nav-item has-treeview">
                     <a href="{{route('account.index')}}"
                        class="nav-link
@@ -77,10 +87,13 @@
                        {{'active'}}
                        @endif
                            ">
-                        <i class="nav-icon fas fa-address-book"></i>
+                        <i class="nav-icon fa fa-address-book"></i>
                         <p>Học Viên</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('banner_view')
                 <li class="nav-item has-treeview">
                     <a href="{{route('slide.index')}}"
                        class="nav-link
@@ -92,41 +105,88 @@
                        {{'active'}}
                        @endif
                            ">
-                        <i class="nav-icon fas fa-images"></i>
+                        <i class="nav-icon fa fa-images"></i>
                         <p>Banner</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('permission_view')
+                <li class="nav-item has-treeview">
+                    <a href="{{route('permissions.index')}}"
+                       class="nav-link
+                            @if (
+                                Route::currentRouteName() == 'permissions.index'||
+                                Route::currentRouteName() == 'permissions.create'||
+                                Route::currentRouteName() == 'permissions.edit'
+                            )
+                       {{'active'}}
+                       @endif
+                           ">
+                        <i class="nav-icon fa fa-drum-steelpan"></i>
+                        <p>Permission</p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('role_view')
+                <li class="nav-item has-treeview">
+                    <a href="{{route('roles.index')}}"
+                       class="nav-link
+                            @if (
+                                Route::currentRouteName() == 'roles.index'||
+                                Route::currentRouteName() == 'roles.create'||
+                                Route::currentRouteName() == 'roles.edit'
+                            )
+                       {{'active'}}
+                       @endif
+                           ">
+                        <i class="nav-icon fas fa-dice-d20"></i>
+                        <p>Role</p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('user_view')
+                <li class="nav-item has-treeview">
+                    <a href="{{route('users.index')}}"
+                       class="nav-link
+                            @if (
+                                Route::currentRouteName() == 'users.index'||
+                                Route::currentRouteName() == 'users.create'||
+                                Route::currentRouteName() == 'users.edit'
+                            )
+                       {{'active'}}
+                       @endif
+                           ">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+
+                @endcan
+
+{{--                @can('setting_view')--}}
 {{--                <li class="nav-item has-treeview">--}}
-{{--                    <a href="#" class="nav-link">--}}
-{{--                        <i class="nav-icon far fa-plus-square"></i>--}}
-{{--                        <p>Cài đặt--}}
-{{--                            <i class="fas fa-angle-left right"></i>--}}
-{{--                        </p>--}}
+{{--                    <a href="{{route('settings.index')}}"--}}
+{{--                       class="nav-link--}}
+{{--                            @if (--}}
+{{--                                Route::currentRouteName() == 'settings.index'||--}}
+{{--                                Route::currentRouteName() == 'settings.create'||--}}
+{{--                                Route::currentRouteName() == 'settings.edit'--}}
+{{--                            )--}}
+{{--                       {{'active'}}--}}
+{{--                       @endif--}}
+{{--                           ">--}}
+{{--                        <i class="nav-icon fa fa-cogs"></i>--}}
+{{--                        <p>Cài đặt</p>--}}
 {{--                    </a>--}}
-{{--                    <ul class="nav nav-treeview">--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="#" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Tài khoản</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="#" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Favicon</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="#" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Footer</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
 {{--                </li>--}}
+
+{{--                @endcan--}}
                 <li class="nav-item">
                     <a href="{{route('auth.logout')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="nav-icon fa fa-sign-out-alt"></i>
                         <p>Đăng Xuất</p>
                     </a>
                 </li>

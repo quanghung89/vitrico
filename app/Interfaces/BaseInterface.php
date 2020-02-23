@@ -27,4 +27,6 @@ interface BaseInterface
     public function delete($id);
 
     public function deleteAll();
+
+    public function updates($id, array $attributes);
 }

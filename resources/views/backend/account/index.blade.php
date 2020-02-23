@@ -11,9 +11,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh Sách Học Viên : {{$listAccounts ? $listAccounts->count() : 0}}</h3>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="align:right">
-                            <a href="{{route('account.create') }}" class="btn btn-primary">Thêm Học Viên</a>
-                        </div>
+                        @can('student_create')
+                            <div class="input-group input-group-sm" style="align:right">
+                                <a href="{{route('account.create') }}" class="btn btn-primary">Thêm Học Viên</a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 @if(session('success'))
@@ -24,7 +26,7 @@
                     <div class="alert alert-danger">
                         {{session('error')}}
                     </div>
-                @endif
+            @endif
             <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
@@ -71,16 +73,21 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('account.edit',[$listAccount['id']])}}">
-                                            <i class="fa fa-edit"></i>
-                                            Sửa
-                                        </a>
+                                        @can('student_edit')
+                                            <a href="{{route('account.edit',[$listAccount['id']])}}">
+                                                <i class="fa fa-edit"></i>
+                                                Sửa
+                                            </a>
+                                        @endcan
                                     </td>
                                     <td>
-                                        <a href="{{route('account.destroy',[$listAccount['id']])}}" onclick="confirmDelete()">
-                                            <i class="fa fa-trash-alt"></i>
-                                            Xóa
-                                        </a>
+                                        @can('student_delete')
+                                            <a href="{{route('account.destroy',[$listAccount['id']])}}"
+                                               onclick="confirmDelete()">
+                                                <i class="fa fa-trash-alt"></i>
+                                                Xóa
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

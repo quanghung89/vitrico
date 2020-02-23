@@ -6,6 +6,8 @@ use App\Http\Requests\University\AddUniversityRequest;
 use App\Http\Requests\University\UpdateUniversityRequest;
 use App\Interfaces\UniversityInterface;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 
 class UniversityController extends Controller
 {
@@ -16,6 +18,7 @@ class UniversityController extends Controller
         $this->repository = $repository;
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +26,7 @@ class UniversityController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('university_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $universitys = $this->repository->listUniversity();
         return view('backend.university.index', compact('universitys'));
     }
@@ -34,13 +38,14 @@ class UniversityController extends Controller
      */
     public function create()
     {
-      return view('backend.university.create');
+        abort_if(Gate::denies('university_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('backend.university.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(AddUniversityRequest $request)
@@ -55,7 +60,7 @@ class UniversityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,11 +71,12 @@ class UniversityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('university_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $university = $this->repository->findUniversityId($id);
 
         return view('backend.university.update', compact('university'));
@@ -79,14 +85,13 @@ class UniversityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUniversityRequest $request, $id)
     {
         $university = $this->repository->updateUniversity($request, $id);
-//        dd($request);
         if (!$university) {
             return redirect()->back()->with('error', 'Cập Nhật Không Thành công');
         }
@@ -96,14 +101,14 @@ class UniversityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('university_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $university = $this->repository->deleteUniversity($id);
-        if (!$university)
-        {
+        if (!$university) {
             return redirect()->back()->with('error', 'Xóa Không Thành công');
         }
         return redirect()->route('university.index')->with('success', 'Xóa thành công');

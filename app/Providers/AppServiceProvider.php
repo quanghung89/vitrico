@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
             'Account',
             'University',
             'Slide',
+            'Permission',
+            'Role',
+            'User'
         );
 
         foreach ($models as $model) {

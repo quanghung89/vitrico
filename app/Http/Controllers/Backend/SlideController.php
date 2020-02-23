@@ -7,6 +7,8 @@ use App\Http\Requests\Slide\CreateSlideRequest;
 use App\Interfaces\SlideInterface;
 use Illuminate\Http\Request;
 use App\RepositoryEloquent\SlideRepository;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 
 class SlideController extends Controller
 {
@@ -28,6 +30,7 @@ class SlideController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('banner_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $listSlides = $this->repository->listsSlide();
         return view('backend.slide.index', ['listSlides' => $listSlides]);
     }
@@ -39,6 +42,7 @@ class SlideController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('banner_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('backend.slide.create');
     }
 
@@ -65,6 +69,7 @@ class SlideController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('banner_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $slide = $this->repository->findSlideId($id);
 
         return view('backend.slide.update', compact('slide'));
@@ -94,6 +99,7 @@ class SlideController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('banner_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $slide = $this->repository->deleteSlide($id);
         if (!$slide)
         {

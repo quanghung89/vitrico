@@ -11,9 +11,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh Sách Banner : {{$listSlides ? $listSlides->count() : 0}}</h3>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="align:right">
-                            <a href="{{route('slide.create') }}" class="btn btn-primary">Thêm Banner</a>
-                        </div>
+                        @can('banner_create')
+                            <div class="input-group input-group-sm" style="align:right">
+                                <a href="{{route('slide.create') }}" class="btn btn-primary">Thêm Banner</a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 @if(session('success'))
@@ -63,16 +65,21 @@
                                             width="80px">
                                     </td>
                                     <td>
-                                        <a href="{{route('slide.edit',[$listSlide['id']])}}">
-                                            <i class="fa fa-edit"></i>
-                                            Sửa
-                                        </a>
+                                        @can('banner_edit')
+                                            <a href="{{route('slide.edit',[$listSlide['id']])}}">
+                                                <i class="fa fa-edit"></i>
+                                                Sửa
+                                            </a>
+                                        @endcan
                                     </td>
                                     <td>
-                                        <a href="{{route('slide.destroy',[$listSlide['id']])}}" onclick="confirmDelete()">
-                                            <i class="fa fa-trash-alt"></i>
-                                            Xóa
-                                        </a>
+                                        @can('banner_delete')
+                                            <a href="{{route('slide.destroy',[$listSlide['id']])}}"
+                                               onclick="confirmDelete()">
+                                                <i class="fa fa-trash-alt"></i>
+                                                Xóa
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

@@ -7,6 +7,8 @@ use App\Http\Requests\News\UpdateNewsRequest;
 use App\Interfaces\CategoryInterface;
 use App\Interfaces\NewsInterface;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 
 class NewController extends Controller
 {
@@ -25,6 +27,7 @@ class NewController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('new_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $news = $this->repository->listNew();
         return view('backend.news.index', compact('news'));
     }
@@ -36,7 +39,7 @@ class NewController extends Controller
      */
     public function create()
     {
-//        $parent = $this->categoryRepository->parentId();
+        abort_if(Gate::denies('new_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $category = $this->categoryRepository->getAllCategory();
         return view('backend.news.create', compact('category'));
     }
@@ -75,6 +78,7 @@ class NewController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('new_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $category = $this->categoryRepository->getAllCategory();
         $new = $this->repository->findNewsId($id);
 
@@ -105,6 +109,7 @@ class NewController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('new_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $news = $this->repository->deleteNews($id);
         if (!$news)
         {

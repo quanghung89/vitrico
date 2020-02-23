@@ -13,9 +13,11 @@
                         Danh Sách Trường Đại Học : {{$universitys ? $universitys->count() : 0}}
                     </h2>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="align:right">
-                            <a href="{{route('university.create') }}" class="btn btn-primary">Thêm Trường Đại Học</a>
-                        </div>
+                        @can('university_create')
+                            <div class="input-group input-group-sm" style="align:right">
+                                <a href="{{route('university.create') }}" class="btn btn-primary">Thêm Trường Đại Học</a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 @if(session('success'))
@@ -73,24 +75,27 @@
                                                 width="80px">
                                         </td>
                                         <td>
-                                            <a
-                                                class="btn btn-info btn-sm"
-                                                href="{{route('university.edit',[$university['id']])}}"
-                                            >
-                                                <i class="fas fa-pencil-alt"></i>
-                                                Sửa
-                                            </a>
-
+                                            @can('university_edit')
+                                                <a
+                                                    class="btn btn-info btn-sm"
+                                                    href="{{route('university.edit',[$university['id']])}}"
+                                                >
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Sửa
+                                                </a>
+                                            @endcan
                                         </td>
                                         <td>
-                                            <a
-                                                class="btn btn-danger btn-sm"
-                                                href="{{route('university.destroy',[$university['id']])}}"
-                                                onclick="confirmDelete()"
-                                            >
-                                                <i class="fas fa-trash"></i>
-                                                Xóa
-                                            </a>
+                                            @can('university_delete')
+                                                <a
+                                                    class="btn btn-danger btn-sm"
+                                                    href="{{route('university.destroy',[$university['id']])}}"
+                                                    onclick="confirmDelete()"
+                                                >
+                                                    <i class="fas fa-trash"></i>
+                                                    Xóa
+                                                </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

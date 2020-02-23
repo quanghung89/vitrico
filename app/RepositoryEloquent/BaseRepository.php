@@ -213,4 +213,21 @@ abstract class  BaseRepository implements BaseInterface
 
         return $this->model->deleteAll();
     }
+
+    /**
+     * @param $id
+     * @param array $attributes
+     * @return bool|mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function updates($id, array $attributes)
+    {
+        $result = $this->find($id);
+        if ($result) {
+            $result->update($attributes);
+            return $result;
+        }
+
+        return false;
+    }
 }

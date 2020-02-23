@@ -15,7 +15,7 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                Tài Khoản  <i class="far fa-user"></i>
+                <i class="far fa-user"></i>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
@@ -31,9 +31,9 @@
                     <!-- Message End -->
                 </div>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer"><i class="fas fa-angle-left right"></i>Cài đặt </a>
+                <a href="#" class="dropdown-item dropdown-footer"><i class="fas fa-user-cog"></i>  Cài đặt </a>
                 <div class="dropdown-divider"></div>
-                <a href="{{route('auth.logout')}}" class="dropdown-item dropdown-footer"><i class="far fa-user"></i>Đăng Xuất</a>
+                <a href="{{route('auth.logout')}}" class="dropdown-item dropdown-footer"><i class="far fa-user"></i>  Đăng Xuất</a>
             </div>
         </li>
 {{--        <li class="nav-item">--}}

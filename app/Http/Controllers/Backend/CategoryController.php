@@ -7,6 +7,8 @@ use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Interfaces\CategoryInterface;
 use App\Interfaces\NewsInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Gate;
 
 class CategoryController extends Controller
 {
@@ -31,6 +33,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('category_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $listCategories = $this->repository->listsCate();
         return view('backend.category.index', ['listCategories' => $listCategories]);
     }
@@ -42,6 +45,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return view('backend.category.create');
     }
 
@@ -68,6 +72,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $category = $this->repository->findCategoryId($id);
 
         return view('backend.category.update', compact('category'));
@@ -97,6 +102,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $news = $this->newsRepository->getAllNews();
 
         foreach ($news as $new)

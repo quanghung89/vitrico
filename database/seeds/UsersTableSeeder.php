@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,13 +13,16 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        \Illuminate\Support\Facades\DB::table('users')->truncate();
+        $user = DB::table('users')->where('email', '=', 'vitrico@gmail.com');
+        if ($user)
+        {
+            $user->delete();
+        }
+
         User::create([
             'name' => 'admin',
             'email' =>'vitrico@gmail.com',
             'image' =>'favicon.png',
-            'level' =>User::LEVEL_ADMIN,
-            'status' =>User::STATUS_ENABLE,
             'password' => bcrypt('123123123a')
         ]);
     }
